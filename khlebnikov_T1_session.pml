@@ -5,10 +5,10 @@ fetch 6asi
 set dash_gap, 0.2
 set dash_length, 0.1
 set label_font_id, 7
-set label_outline_color, black
-set label_color, gray90
+set label_outline_color, white
+set label_color, black
 set ray_opaque_background, on
-set ray_trace_mode, 1
+set ray_trace_mode, 0
 
 # clear the field
 hide everything
@@ -57,11 +57,11 @@ hide sticks, MetSulf & element H
 color gray80,     prot
 color deepblue,   ATP
 color red,        MetSulf
-color gray30,     (pockets | article_res) & sidechain & element C
+color gray60,     (pockets | article_res) & sidechain & element C
 color red,        (pockets | article_res) & sidechain & element O
 color nitrogen,   (pockets | article_res) & sidechain & element N 
 color yellow,     MetSulf & element S
-color gray30,     MetSulf & element C
+color gray60,     MetSulf & element C
 color tv_red,     ATP & element O
 color lightblue,  ATP & element N
 
@@ -90,20 +90,20 @@ distance T455_ATP,    resi 455 and name OG1,  ATP and name N6
 
 # color distances
 color red, Mg_ATP
-color purpleblue, R449_piSt1
-color purpleblue, R449_piSt2
-color purpleblue, R449_piSt3
-color gray70, S209_MS
-color gray70, R65_MS1
-color gray70, R65_MS2
-color gray70, MS_H2O_1
-color gray70, MS_H2O_2
-color gray70, R333_ATP1
-color gray70, R333_ATP2
-color gray70, K254_ATP
-color gray70, E297_Ribose
-color gray70, T455_ATP
-color gray70, S250_ATP
+color 0x4F518C, R449_piSt1
+color 0x4F518C, R449_piSt2
+color 0x4F518C, R449_piSt3
+color gray90, S209_MS
+color gray90, R65_MS1
+color gray90, R65_MS2
+color gray90, MS_H2O_1
+color gray90, MS_H2O_2
+color gray90, R333_ATP1
+color gray90, R333_ATP2
+color gray90, K254_ATP
+color gray90, E297_Ribose
+color gray90, T455_ATP
+color gray90, S250_ATP
 color manganese, Mn_H2O
 color manganese, Mn_ATP
 color manganese, K213_Mn
@@ -116,6 +116,7 @@ label name CB and resi 209,        "%s-%s" % (resn, resi)
 label name CB and resi 65,         "%s-%s" % (resn, resi)
 label MetSulf & name C13,          "MetSulfonate"
 label solvent within 2.89 of (MetSulf and name O12+OXT), "H2O"
+show sticks, element H and bound_to (resi 209 and name OG | resi 65 and name NE+NH2)
 #set_view (\
 #     0.970655143,   -0.232519761,    0.061324928,\
 #     0.210976079,    0.945814908,    0.246816233,\
@@ -123,9 +124,9 @@ label solvent within 2.89 of (MetSulf and name O12+OXT), "H2O"
 #     0.000191130,   -0.000062013,  -31.723655701,\
 #    18.023424149,    3.938984871,   62.026828766,\
 #   -16.598247528,   80.057029724,  -20.000000000 )
-#hide sticks,  ATP | pocket_ATP | resi 232 | resi 213
+#hide sticks,  ATP | pocket_ATP | resi 232 | resi 213 | resi 269
 #hide spheres, Mg | Mn
-#for d in ["Mg_ATP", "Mn_H2O", "Mn_ATP", "K213_Mn", "H232_Mn", "S250_ATP", "K254_ATP", "T255_Mg", "R333_ATP1", "R333_ATP2"]: \
+#for d in ["Mg_ATP", "Mn_H2O", "Mn_ATP", "K213_Mn", "H232_Mn", "S250_ATP", "K254_ATP", "T255_Mg", "R333_ATP1", "R333_ATP2", "D269_Mn"]: \
 #  cmd.do(f"hide dashes, {d}"), \
 #  cmd.do(f"hide labels, {d}")
 
@@ -138,6 +139,7 @@ label name CG and resi 449,  "%s-%s" % (resn, resi)
 #hide cartoon, resi 251-261+359-367+380-392+370+430-439+356-368+243-252
 #hide spheres, Mg | Mn | solvent
 #hide sticks,  MetSulf | (resi 255+333+250+254)
+h_add resi 601 and name O2'
 #set_view (\
 #     0.172505945,    0.852241039,    0.493874907,\
 #    -0.316513658,    0.522769630,   -0.791529238,\
@@ -150,7 +152,7 @@ label name CG and resi 449,  "%s-%s" % (resn, resi)
 #orient resi 601 and name PB
 #set label_position, [-1,1,-1], Mn_ATP
 #set stick_transparency, 0.7, ATP and name N1+N3+N6+N7+N9+C2+C4+C5+C6+C8+C1'+C2'+C3'+C4'+O2'+O3'+O4'
-#hide sticks,  resi 232+213+65+209+297+449+455 | MetSulf
+#hide sticks,  resi 232+213+65+209+297+449+455+269 | MetSulf
 #hide spheres, solvent
 #hide cartoon, resi 264-272+279-290+230-236
 label name CD and resi 333,   "%s-%s" % (resn, resi)
@@ -161,9 +163,10 @@ label name CG2 and resi 255,  "%s-%s" % (resn, resi)
 label Mg,                     "Mg"
 #label Mn,                     "Mn"
 #for d in ["MS_H2O_1", "MS_H2O_2", "Mn_H2O", "R65_MS1", "R65_MS2", "S209_MS", "K213_Mn", "H232_Mn", \
-#	   "E297_Ribose", "R449_piSt1", "R449_piSt2", "R449_piSt3", "T455_ATP"]: \
+#	   "E297_Ribose", "R449_piSt1", "R449_piSt2", "R449_piSt3", "T455_ATP", "D269_Mn"]: \
 #	cmd.do(f"hide dashes, {d}"), \
 #	cmd.do(f"hide labels, {d}")
+show sticks, element H and (bound_to (resi 333 and name NH1+NH2) | bound_to (resi 254 and name NZ) | bound_to (resi 250 and name OG))
 #set_view (\
 #    -0.885109365,   -0.405670375,   -0.228061646,\
 #     0.132115170,    0.250859827,   -0.958964825,\
@@ -177,13 +180,13 @@ label Mg,                     "Mg"
 #hide sticks,  resi 65+209+333+254+250
 #hide spheres, Mg
 #hide cartoon, resi 504-550+385-391+247-252+399-406
-label Mn,                     "Mn"
-label name CD and resi 213,   "%s-%s" % (resn, resi)
-label name CB and resi 232,   "%s-%s" % (resn, resi)
-label name CB and resi 269,   "%s-%s" % (resn, resi)
-label name PG and ATP,        "Gamma P"
-label solvent within 3 of Mn, "H2O"
-label MetSulf and name S10,   "MetSulfonate"
+#label Mn,                     "Mn"
+#label name CD and resi 213,   "%s-%s" % (resn, resi)
+#label name CB and resi 232,   "%s-%s" % (resn, resi)
+#label name CB and resi 269,   "%s-%s" % (resn, resi)
+#label name PG and ATP,        "Gamma P"
+#label solvent within 3 of Mn, "H2O"
+#label MetSulf and name S10,   "MetSulfonate"
 #for d in ["Mg_ATP", "R65_MS1", "R65_MS2", "S209_MS", "S250_ATP", "K254_ATP", "T255_Mg", \
 #	  "E297_Ribose", "R333_ATP1", "R333_ATP2"]: \
 #       cmd.do(f"hide dashes, {d}"), \
@@ -201,13 +204,13 @@ label MetSulf and name S10,   "MetSulfonate"
 #hide sticks,  resi 65+209+333+254+250
 #hide spheres, Mg
 #hide cartoon, resi 504-550+385-391+247-252+399-406
-#label Mn,                     "Mn"
-#label name CD and resi 213,   "%s-%s" % (resn, resi)
-#label name CB and resi 232,   "%s-%s" % (resn, resi)
-#label name CB and resi 269,   "%s-%s" % (resn, resi)
-#label name PG and ATP,        "Gamma P"
-#label solvent within 3 of Mn, "H2O"
-#label MetSulf and name S10,   "MetSulfonate"
+label Mn,                     "Mn"
+label name CD and resi 213,   "%s-%s" % (resn, resi)
+label name CB and resi 232,   "%s-%s" % (resn, resi)
+label name CB and resi 269,   "%s-%s" % (resn, resi)
+label name PG and ATP,        "Gamma P"
+label solvent within 3 of Mn, "H2O"
+label MetSulf and name S10,   "MetSulfonate"
 angle H2O_Mn_H2O,   resi 728,              Mn, resi 825
 angle H2O_Mn_Asp,   resi 728,              Mn, resi 269 and name OD1
 angle Asp_Mn_His,   resi 269 and name OD1, Mn, resi 232 and name NE2
