@@ -139,7 +139,7 @@ label name CG and resi 449,  "%s-%s" % (resn, resi)
 #hide cartoon, resi 251-261+359-367+380-392+370+430-439+356-368+243-252
 #hide spheres, Mg | Mn | solvent
 #hide sticks,  MetSulf | (resi 255+333+250+254)
-h_add resi 601 and name O2'
+h_add (resi 601 and name O2') | (resi 601 and name N6)
 #set_view (\
 #     0.172505945,    0.852241039,    0.493874907,\
 #    -0.316513658,    0.522769630,   -0.791529238,\
